@@ -1,0 +1,35 @@
+{% extends 'onlinecourse/base.html' %}
+{% block title %}Courses | OnlineCourse{% endblock %}
+{% block content %}
+<section class="hero rounded-4 p-5 mb-5 text-white shadow-sm">
+  <div class="col-lg-8">
+    <span class="badge text-bg-light mb-3">Learn by doing</span>
+    <h1 class="display-5 fw-bold">Build practical Django skills</h1>
+    <p class="lead mb-0">Study the lessons, enroll in a course, and complete the graded assessment.</p>
+  </div>
+</section>
+<h2 class="mb-4">Available courses</h2>
+<div class="row g-4">
+  {% for course in course_list %}
+  <div class="col-lg-6">
+    <article class="card course-card h-100 shadow-sm border-0">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-start gap-3">
+          <div>
+            <div class="text-primary fw-semibold small text-uppercase mb-2">Online course</div>
+            <h3 class="h4">{{ course.name }}</h3>
+          </div>
+          <span class="badge text-bg-light">{{ course.total_enrollment }} enrolled</span>
+        </div>
+        <p class="text-secondary mt-3">{{ course.description }}</p>
+        <a class="btn btn-primary" href="{% url 'onlinecourse:course_details' course.id %}">
+          {% if course.is_enrolled %}Continue course{% else %}View course{% endif %}
+        </a>
+      </div>
+    </article>
+  </div>
+  {% empty %}
+    <p>No courses are available yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

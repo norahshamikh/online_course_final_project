@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.DS_Store
+.idea/
+.vscode/
+staticfiles/
+media/*
+!media/course_images/
+!media/course_images/django_course.png

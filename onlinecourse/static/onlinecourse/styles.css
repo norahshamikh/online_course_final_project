@@ -1,0 +1,29 @@
+:root {
+  --brand: #4f46e5;
+  --brand-dark: #312e81;
+  --ink: #111827;
+  --muted: #6b7280;
+  --page: #f8fafc;
+}
+body { background: var(--page); color: var(--ink); }
+.bg-primary, .btn-primary { background-color: var(--brand) !important; border-color: var(--brand) !important; }
+.text-primary { color: var(--brand) !important; }
+.hero { background: linear-gradient(135deg, #312e81, #6366f1 65%, #8b5cf6); }
+.course-card { transition: transform .2s ease, box-shadow .2s ease; }
+.course-card:hover { transform: translateY(-3px); box-shadow: 0 1rem 2rem rgba(15, 23, 42, .12) !important; }
+.exam-panel { background: #fff; border: 1px solid #e5e7eb; }
+.question-block { background: #f8fafc; border-color: #e2e8f0 !important; }
+.lesson-content { color: #475569; }
+.auth-card { max-width: 540px; }
+.result-hero { color: #fff; }
+.result-success { background: linear-gradient(135deg, #047857, #10b981); }
+.result-failed { background: linear-gradient(135deg, #991b1b, #ef4444); }
+.result-icon { width: 72px; height: 72px; display: grid; place-items: center; border-radius: 50%; margin-inline: auto; background: rgba(255,255,255,.18); font-size: 2.4rem; font-weight: 800; }
+.score-pill { background: rgba(255,255,255,.18); }
+.result-card.correct { border-left: 5px solid #10b981 !important; }
+.result-card.incorrect { border-left: 5px solid #ef4444 !important; }
+.answer-row { background: #f1f5f9; }
+.answer-correct { background: #dcfce7; color: #166534; }
+.answer-wrong { background: #fee2e2; color: #991b1b; }
+.answer-missed { background: #fef3c7; color: #92400e; }
+.card-img-top { max-height: 230px; object-fit: cover; }

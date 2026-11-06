@@ -1,10 +1,14 @@
+
 from django.conf import settings
 from django.db import models
 from django.utils.timezone import now
 
 
 class Instructor(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     full_time = models.BooleanField(default=True)
     total_learners = models.IntegerField(default=0)
 
@@ -25,7 +29,10 @@ class Learner(models.Model):
         (DATABASE_ADMIN, "Database Admin"),
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     occupation = models.CharField(
         max_length=20,
         choices=OCCUPATION_CHOICES,
@@ -43,7 +50,10 @@ class Course(models.Model):
     description = models.CharField(max_length=1000)
     pub_date = models.DateField(null=True, blank=True)
     instructors = models.ManyToManyField(Instructor, blank=True)
-    users = models.ManyToManyField(settings.AUTH_USER_MODEL, through="Enrollment")
+    users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through="Enrollment"
+    )
     total_enrollment = models.IntegerField(default=0)
 
     def __str__(self):
@@ -74,10 +84,17 @@ class Enrollment(models.Model):
         (BETA, "BETA"),
     ]
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     date_enrolled = models.DateField(default=now)
-    mode = models.CharField(max_length=5, choices=COURSE_MODES, default=AUDIT)
+    mode = models.CharField(
+        max_length=5,
+        choices=COURSE_MODES,
+        default=AUDIT
+    )
     rating = models.FloatField(default=5.0)
 
     class Meta:
@@ -95,21 +112,28 @@ class Enrollment(models.Model):
 class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     text = models.CharField(max_length=200, default="Question")
-    grade = models.FloatField(default=0)
+
+    # Changed FloatField to IntegerField as required
+    grade = models.IntegerField(default=0)
 
     def __str__(self):
         return self.text
 
     def is_get_score(self, selected):
         """Return True only when the exact set of correct choices was selected."""
+
         selected_ids = {
             item.pk if isinstance(item, Choice) else int(item)
             for item in selected
             if item is not None
         }
+
         correct_ids = set(
-            self.choice_set.filter(is_correct=True).values_list("id", flat=True)
+            self.choice_set.filter(
+                is_correct=True
+            ).values_list("id", flat=True)
         )
+
         return bool(correct_ids) and selected_ids == correct_ids
 
 

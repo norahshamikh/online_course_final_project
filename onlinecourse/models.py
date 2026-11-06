@@ -112,9 +112,11 @@ class Enrollment(models.Model):
 class Question(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     text = models.CharField(max_length=200, default="Question")
-
-    # Changed FloatField to IntegerField as required
     grade = models.IntegerField(default=0)
+
+    @property
+    def question_text(self):
+        return self.text
 
     def __str__(self):
         return self.text
@@ -129,9 +131,9 @@ class Question(models.Model):
         }
 
         correct_ids = set(
-            self.choice_set.filter(
-                is_correct=True
-            ).values_list("id", flat=True)
+            self.choice_set.filter(is_correct=True).values_list(
+                "id", flat=True
+            )
         )
 
         return bool(correct_ids) and selected_ids == correct_ids

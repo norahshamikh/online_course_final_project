@@ -183,14 +183,17 @@ def show_exam_result(request, course_id, submission_id):
         )
 
     grade = round((achieved_points / total_points) * 100) if total_points else 0
-    context = {
-        "course": course,
-        "submission": submission,
-        "submitted_choices": submitted_choices,
-        "question_results": question_results,
-        "achieved_points": achieved_points,
-        "total_points": total_points,
-        "grade": grade,
-        "passed": grade >= 80,
-    }
+
+context = {
+    "course": course,
+    "submission": submission,
+    "submitted_choices": submitted_choices,
+    "selected_ids": submitted_ids,
+    "question_results": question_results,
+    "achieved_points": achieved_points,
+    "total_points": total_points,
+    "grade": grade,
+    "passed": grade >= 80,
+}
+
     return render(request, "onlinecourse/exam_result_bootstrap.html", context)

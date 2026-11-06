@@ -1,7 +1,14 @@
-from django.contrib import admin
 
-# The rubric asks for these seven imported model classes.
-from .models import Choice, Course, Instructor, Learner, Lesson, Question, Submission
+from django.contrib import admin
+from .models import (
+    Choice,
+    Course,
+    Instructor,
+    Learner,
+    Lesson,
+    Question,
+    Submission
+)
 
 
 class ChoiceInline(admin.StackedInline):
@@ -34,7 +41,7 @@ class LessonAdmin(admin.ModelAdmin):
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
-    list_display = ("text", "course", "grade")
+    list_display = ("question_text", "course", "grade")
     list_filter = ("course",)
 
 
